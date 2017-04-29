@@ -11,12 +11,12 @@ function toFixedStringy(value, precision)  {
     }
   }; 
  
- // Remove decimal point from stringValue
+  // Remove decimal point from stringValue
   var numberWithoutDecimal = stringValue.replace('.','');
-    // Splice string in order to add decimal in new spot i.e move decimal precision times over
+  // Splice string in order to add decimal in new spot i.e move decimal precision times over
   var posBeforeDecimal = precision + decimalPosition;
   var stringBeforeDecimal = numberWithoutDecimal.slice(0, posBeforeDecimal);
-  var stringAfterDecimal =  numberWithoutDecimal.slice(posBeforeDecimal)
+  var stringAfterDecimal =  numberWithoutDecimal.slice(posBeforeDecimal);
   
   //String with new decimal
   var newDecimalString = stringBeforeDecimal.concat(".",stringAfterDecimal);
@@ -35,14 +35,3 @@ function toFixedStringy(value, precision)  {
 
 
 
-
-
-//  console.log(numberWithoutDecimal);
-//   console.log(endNumber);
-//   console.log(stringLength);
-//   console.log(beforeDecimal);
-//   console.log(afterDecimal);
-//   console.log(newDecimalString);
-//   console.log(backToNumber);
-//   console.log(numberRounded);
-//   console.log(finalNumber);
