@@ -49,8 +49,8 @@ tests({
         eq( toFixedStringy(.005, 2), 0.01 );
     },
 
-    '"1.005" with 2 precision return "1.01"': function() {
-      eq( toFixedStringy(1.005, 2), 1.01 );
+    '"1.5" with 2 precision return "1.50"': function() {
+      eq( toFixedStringy(1.5, 2), 1.50 );
 
 
     },

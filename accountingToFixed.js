@@ -5,16 +5,14 @@ function toFixedStringy(value, precision)  {
   //Find position of decimal point. 
   var decimalPosition = stringValue.indexOf(".");
   
-
-  // Find length of string (decimal removed)
-
+  // Find length of string
   var stringLength = stringValue.length
   
   // If precision is longer then string, add '0' to end of string as many times as is needed
   if(stringLength - (decimalPosition + 1) < precision) {
-    var zerosToAdd = Maths.abs(stringLength - (decimalPosition + 1) - precision);
+    var zerosToAdd = Math.abs(stringLength - (decimalPosition + 1) - precision);
     for (var i = 0; i < zerosToAdd; i++) {
-    stringValue + "0";
+    stringValue = stringValue + "0";
     }
   } 
  
@@ -22,11 +20,12 @@ function toFixedStringy(value, precision)  {
   var posBeforeDecimal = precision + decimalPosition;
  // Remove decimal point from stringValue
   var numberWithoutDecimal = stringValue.replace('.','');
+
   var stringBeforeDecimal = numberWithoutDecimal.slice(0, posBeforeDecimal);
   var stringAfterDecimal =  numberWithoutDecimal.slice(posBeforeDecimal)
   
   //String with new decimal
-  var newDecimalString = stringBeforeDecimal + "." + stringAfterDecimal;
+  var newDecimalString = stringBeforeDecimal.concat(".",stringAfterDecimal);
 
   //Revert new string to number 
   var newStringtoNumber = Number(newDecimalString);
