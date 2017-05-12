@@ -1,9 +1,9 @@
 function toFixedStringy(value, precision) {
 
-const multipliedValue = Number(moveDecimal(value, precision));
-const roundedValue = Math.round(multipliedValue);
-const finalValue =  Number(moveDecimal(roundedValue, -precision));
-return finalValue;
+  const multipliedValue = Number(moveDecimal(value, precision));
+  const roundedValue = Math.round(multipliedValue);
+  const finalValue = Number(moveDecimal(roundedValue, -precision));
+  return finalValue;
 }
 
 
@@ -20,24 +20,34 @@ function moveDecimal(value, precision) {
   }
 
   const newDecimalIndex = currentDecimalIndex + precision;
- //Remove current decimal
-  
+  //Remove current decimal
+
   number.splice(currentDecimalIndex, 1);
-  
+
   if (newDecimalIndex > number.length) {
     addZeros(number, newDecimalIndex);
-  } else {
-    number = [...number.slice(0, newDecimalIndex),'.',...number.slice(newDecimalIndex)];
+    return number.join('');
+  } else if (newDecimalIndex < 0) {
+    addZeros(number, precision);
   }
+  number = [...number.slice(0, Math.abs(newDecimalIndex)), '.', ...number.slice(Math.abs(newDecimalIndex))]
+  return number.join('');
 
-   return number.join('');
-   
 }
 
 function addZeros(array, requiredLength) {
-  const zerosToAdd = requiredLength - array.length;
-  for ( let i = 0; i < zerosToAdd; i++) {
-    array.push('0');
+  if (requiredLength < 0) {
+    let zerosToAdd = Math.abs(requiredLength)
+
+    for (let i = 0; i < zerosToAdd; i++) {
+      array.unshift('0');
+    }
+  } else {
+    let zerosToAdd = requiredLength - array.length;
+
+    for (let i = 0; i < zerosToAdd; i++) {
+      array.push('0');
+    }
   }
 }
 
