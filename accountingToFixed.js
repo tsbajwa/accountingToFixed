@@ -1,7 +1,14 @@
 function toFixedStringy(value, precision) {
 
-const multipledValue = moveDecimal(value, precision);
+const multipliedValue = Number(moveDecimal(value, precision));
+const roundedValue = Math.round(multipliedValue);
+const finalValue =  Number(moveDecimal(roundedValue, -precision));
+return finalValue;
 }
+
+
+
+// Internal Helper functions
 
 function moveDecimal(value, precision) {
   let number = Array.from(value.toString());
@@ -13,23 +20,19 @@ function moveDecimal(value, precision) {
   }
 
   const newDecimalIndex = currentDecimalIndex + precision;
-
-  if (newDecimalIndex +  1 > number.length) {
-    addZeros(number, newDecimalIndex + 1);
-    // const zerosToAdd = (newDecimalIndex + 1) - number.length;
-    // for (let i = 0; i < zerosToAdd; i++) {
-    //   number.push('0');
-    // }
-    number.splice(currentDecimalIndex, 1);
+ //Remove current decimal
+  
+  number.splice(currentDecimalIndex, 1);
+  
+  if (newDecimalIndex > number.length) {
+    addZeros(number, newDecimalIndex);
   } else {
-    number.splice(currentDecimalIndex, 1);
-    number = [...number.slice(0, newDecimalIndex),'.',...number.slice(newDecimalIndex + 1)];
+    number = [...number.slice(0, newDecimalIndex),'.',...number.slice(newDecimalIndex)];
   }
 
-   number = number.join('');
-   return number;
+   return number.join('');
+   
 }
-
 
 function addZeros(array, requiredLength) {
   const zerosToAdd = requiredLength - array.length;
