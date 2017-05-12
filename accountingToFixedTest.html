@@ -9,56 +9,37 @@
 //Borrowed Tests
 
 tests({
-   'should return .62': function() {
-       var testOne = toFixedStringy(.615, 2);
-       eq(testOne, .62);
-   },
-   'should return 10.24': function() {
-       var testTwo = toFixedStringy(10.235, 2);
-       eq(testTwo === 10.24, true);
-   },
-   'should return 1.01': function() {
-       var testThree = toFixedStringy(1.005, 2);
-       eq(testThree, 1.01);
-   },
-   'should return .236': function() {
-       var testFour = toFixedStringy(.2356, 3);
-       eq(testFour === .236, true);
-   },
-   'should return 10.7': function() {
-       var testFive = toFixedStringy(10.678, 1);
-       eq(testFive, 10.7);
-   },
-   'should return 10': function() {
-       var testSix = toFixedStringy(10.235, 0);
-       eq(testSix === 10, true);
-   },
-   'should return 11': function() {
-       var testSeven = toFixedStringy(10.635, 0);
-       eq(testSeven, 11);
-   },
-   'should return 1.00201': function() {
-       var testSeven = toFixedStringy(1.002005, 5);
-       eq(testSeven, 1.00201);
-   }
-	 })
 
-	 tests({
-    '".005" with 2 precision shoud return "0.01"': function() {
-        var oneHundred = 100;
+    'Integer with precision of 0 should return integer back': function () {
+        eq(toFixedStringy(2345,0), 2345);
+    },
+    'Integer with precision > 1 should return correct value': function () {
+        eq(toFixedStringy(245625,2),245625.00);
+    },
+   'Fraction with precision 0 should return correct value': function() {
+      eq(toFixedStringy(0.554, 0), 1);
+   },
+   'Fraction with precision > 0, precision < no. of digits, should return correct value': function() {
+      eq(toFixedStringy(0.554, 1), 0.6);
+   },
+   'Fraction with precision > 0, precision > no. of digits, should return correct value': function() {
+      eq(toFixedStringy(0.554, 5), 0.55400);
+   },
+   'Non integer value > 1 with precision > 0, precision < no. of digits, should return correct value': function() {
+      eq(toFixedStringy(1.556, 2), 1.56);
+   },
+    'Non integer value > 1 with precision > 0, precision > no. of digits, should return correct value': function() {
+      eq(toFixedStringy(6.554, 5), 6.5540);
+   },
+   "Fraction with x 0's straight after decimal point. precision = x": function() {
         eq( toFixedStringy(.005, 2), 0.01 );
     },
-
-    '"1.5" with 2 precision return "1.50"': function() {
-      eq( toFixedStringy(1.5, 2), 1.50 );
-
-
+    "Fraction with x 0's straight after decimal point. precision > x": function() {
+        eq( toFixedStringy(.005, 3), 0.050 );
     },
-
-    '"12314.12342145" with 7 precision return "12314.1234215"': function() {
-      eq( toFixedStringy(12314.12342145, 7), 12314.1234215 );
+    "Fraction with x 0's straight after decimal point. precision < x": function() {
+        eq( toFixedStringy(.005, 1), 0 );
     }
 })
-
 </script>
 
